@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Search from "./pages/Search";
 import Saved from "./pages/Saved";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -9,9 +10,9 @@ function App() {
       <div>
         
           <Route exact path="/" component={Search} />
+          <Route exact path="/search" component={Search} />
           <Route exact path="/saved" component={Saved} />
     
-        
       </div>
     </Router>
   );
