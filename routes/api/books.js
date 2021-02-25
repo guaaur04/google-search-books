@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const booksController = require("../../controllers/booksController");
+const axois = require("axios");
+const { default: axios } = require("axios");
 
 // Matches with "/api/books"
 router.route("/")
@@ -14,3 +16,13 @@ router
   .delete(booksController.remove);
 
 module.exports = router;
+
+router.post("/", (req,res) => {
+axios.get('https://www.googleapis.com/books/v1/volumes?q=')
+.then((response => response.json(response.data)) 
+.then(result => {
+  this.setState({ books: result.items})
+  // console.log(response.data);
+}));
+
+});
