@@ -1,15 +1,16 @@
 
 ## Description
+React-based Google Books Search app using the Google Books API. 
 
 
 ## Features
-Search, view, and sort employee data.
+This application is meant to allow the user to search, view, save, and delete sort Google Books. 
 
 ## Screenshots and Demonstration
 
 
 ## Technology
-React! Mongo Bootstrap 
+React, React-Boostrap, Google Books API, Express, and  MongoDB.
 
 ## License
 License: MIT

@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import API from "../utils/API";
 
 
-
 function Search() {
 
   // Setting our component's initial state
@@ -24,7 +23,7 @@ function Search() {
   // Loads all books and sets them to books
   function loadBooks() {
     API.getBooks()
-      .then(res => 
+      .then(res =>
         setBooks(res.data)
       )
       .catch(err => console.log(err));
@@ -41,10 +40,10 @@ function Search() {
 
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setFormObject({...formObject, [name]: value})
+    setFormObject({ ...formObject, [name]: value })
   };
 
-   // When the form is submitted, use the API.saveBook method to save the book data
+  // When the form is submitted, use the API.saveBook method to save the book data
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -61,41 +60,48 @@ function Search() {
     }
   };
 
+  // axios.post(url, "/" {value})
+  // .then((result)) => {
+  //   console.log(result, "We're getting somewhere")
+  // };
+
   return (
     <div>
-        <Nav />
-        <Hero />
+      <Nav />
+      <Hero />
       <h1>Search</h1>
 
       <form>
-              <Input
-                onChange={handleInputChange}
-                name="title"
-                placeholder="Book (required)"
-              />
-              <FormBtn 
-                onClick={handleFormSubmit}
-              >
-              Book Search
-              </FormBtn>
+        <Input
+          onChange={handleInputChange}
+          name="title"
+          placeholder="Book (required)"
 
-              <Card /> 
+        />
+        <FormBtn
+          disabled={!(formObject.author && formObject.title)}
+          onClick={handleFormSubmit}
+        >
+          Book Search
+              </FormBtn >
+
+        <Card />
 
 
-              <List>
-                {books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.authors}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-              
-            </form>
+        <List>
+          {books.map(book => (
+            <ListItem key={book._id}>
+              <Link to={"/saved/" + book._id}>
+                <strong>
+                  {book.title} by {book.authors}
+                </strong>
+              </Link>
+              <DeleteBtn onClick={() => deleteBook(book._id)} />
+            </ListItem>
+          ))}
+        </List>
+
+      </form>
 
 
 
