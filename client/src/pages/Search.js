@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
 import Hero from "../components/Hero";
+import Card from "../components/Card";
 import { Input, FormBtn } from "../components/Form";
 
 function Search() {
@@ -19,8 +20,11 @@ function Search() {
               <FormBtn
                 // onClick={handleFormSubmit}
               >
-                Search
+                Book Search
               </FormBtn>
+
+              <Card /> 
+              
             </form>
 
 
