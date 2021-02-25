@@ -7,13 +7,20 @@ import { Input, FormBtn } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
-
+import axios from "axios";
 
 function Search() {
 
-  // Setting our component's initial state
-  const [books, setBooks] = useState([])
-  const [formObject, setFormObject] = useState({})
+  // // Setting our component's initial state
+  const[books, setBooks] = useState([])
+  const[formObject, setFormObject] = useState({
+     title: "",
+     authors: "",
+     description: "",
+     image: "",
+     link: ""
+   })
+ 
 
   // Load all books and store them with setBooks
   useEffect(() => {
@@ -37,7 +44,6 @@ function Search() {
       .catch(err => console.log(err));
   };
 
-
   function handleInputChange(event) {
     const { name, value } = event.target;
     setFormObject({ ...formObject, [name]: value })
@@ -47,7 +53,7 @@ function Search() {
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
-    if (formObject.title && formObject.author) {
+    if (formObject.title) {
       API.saveBook({
         title: formObject.title,
         authors: formObject.authors,
@@ -60,53 +66,57 @@ function Search() {
     }
   };
 
-  // axios.post(url, "/" {value})
-  // .then((result)) => {
-  //   console.log(result, "We're getting somewhere")
-  // };
+//Should save to array of users books in DB
+// I am getting a 404 api/books 
 
-  return (
-    <div>
-      <Nav />
-      <Hero />
-      <h1>Search</h1>
+  axios.post("/api/books", {formObject} )
+  .then((result) => {
+    console.log(result, "We're getting somewhere");
+  })
 
-      <form>
-        <Input
-          onChange={handleInputChange}
-          name="title"
-          placeholder="Book (required)"
+  
+    return (
+      <div>
+        <Nav />
+        <Hero />
+        <h1>Search</h1>
 
-        />
-        <FormBtn
-          disabled={!(formObject.author && formObject.title)}
-          onClick={handleFormSubmit}
-        >
-          Book Search
-              </FormBtn >
+        <form>
+          <Input
+            onChange={handleInputChange}
+            name="title"
+            placeholder="Book (required)"
+            value={formObject.title}
 
-        <Card />
+          />
+          <FormBtn
+            // disabled={!(formObject.author && formObject.title)}
+            onClick={handleFormSubmit}
+          >
+            Book Search
+                </FormBtn >
 
+          <Card />
 
-        <List>
-          {books.map(book => (
-            <ListItem key={book._id}>
-              <Link to={"/saved/" + book._id}>
-                <strong>
-                  {book.title} by {book.authors}
-                </strong>
-              </Link>
-              <DeleteBtn onClick={() => deleteBook(book._id)} />
-            </ListItem>
-          ))}
-        </List>
+{/* 
+Here we were to map through book details to render to appropriate parts of the page */}
+          {/* <List>
+            {books.map(book => (
+              <ListItem key={book._id}>
+                <Link to={"/books/" + book._id}>
+                  <strong>
+                    {book.title} by {book.authors}
+                  </strong>
+                </Link>
+                <DeleteBtn onClick={() => deleteBook(book._id)} />
+              </ListItem>
+            ))}
+          </List> */}
 
-      </form>
+        </form>
 
-
-
-    </div>
-  );
-}
+      </div>
+    );
+  }
 
 export default Search;
