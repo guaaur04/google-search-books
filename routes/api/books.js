@@ -17,7 +17,7 @@ router
 module.exports = router;
 
 router.post("/", (req,res) => {
-axios.get('https://www.googleapis.com/books/v1/volumes?q=' + req.body.searchTerm)
+axios.get('https://www.googleapis.com/books/v1/volumes?q=' + req.body.name)
 .then((response => response.json(response.data)) 
 .then(result => {
   this.setState({ books: result.items})
